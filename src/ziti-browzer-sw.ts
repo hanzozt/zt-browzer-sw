@@ -37,8 +37,8 @@ import {cleanupOutdatedCaches} from 'workbox-precaching';
 import {ExpirationPlugin} from 'workbox-expiration';
 import {registerRoute, setCatchHandler} from 'workbox-routing';
 import {clientsClaim} from 'workbox-core';
-import {ZitiFirstStrategy} from '@openziti/ziti-browzer-sw-workbox-strategies';
-import { ZitiBrowzerCore } from '@openziti/ziti-browzer-core';
+import {ZitiFirstStrategy} from '@hanzozt/ziti-browzer-sw-workbox-strategies';
+import { ZitiBrowzerCore } from '@hanzozt/ziti-browzer-core';
 import { v4 as uuidv4 } from 'uuid';
 
 import pjson from '../package.json';

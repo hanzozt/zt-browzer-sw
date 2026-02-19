@@ -84,9 +84,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openziti/libcrypto-js@npm:0.24.0":
+"@hanzozt/libcrypto-js@npm:0.24.0":
   version: 0.24.0
-  resolution: "@openziti/libcrypto-js@npm:0.24.0"
+  resolution: "@hanzozt/libcrypto-js@npm:0.24.0"
   dependencies:
     "@types/emscripten": "npm:^1.39.6"
     "@wasmer/wasi": "npm:^1.0.2"
@@ -94,12 +94,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openziti/ziti-browzer-core@npm:^0.68.0":
+"@hanzozt/ziti-browzer-core@npm:^0.68.0":
   version: 0.68.0
-  resolution: "@openziti/ziti-browzer-core@npm:0.68.0"
+  resolution: "@hanzozt/ziti-browzer-core@npm:0.68.0"
   dependencies:
-    "@openziti/libcrypto-js": "npm:0.24.0"
-    "@openziti/ziti-browzer-edge-client": "npm:^0.7.0"
+    "@hanzozt/libcrypto-js": "npm:0.24.0"
+    "@hanzozt/ziti-browzer-edge-client": "npm:^0.7.0"
     asn1js: "npm:^3.0.5"
     assert: "npm:^2.0.0"
     async-mutex: "npm:^0.5.0"
@@ -141,20 +141,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openziti/ziti-browzer-edge-client@npm:^0.7.0":
+"@hanzozt/ziti-browzer-edge-client@npm:^0.7.0":
   version: 0.7.0
-  resolution: "@openziti/ziti-browzer-edge-client@npm:0.7.0"
+  resolution: "@hanzozt/ziti-browzer-edge-client@npm:0.7.0"
   dependencies:
     superagent: "npm:^7.1.3"
   checksum: fbaf1ce2c5a68a62ba4281e0be4660f2cd5cae99ab69f5ce57b8aa995269aa0e876837ce7251982adeecd4b5c0d1e86531797d0f126629c824281b56bc82b3fe
   languageName: node
   linkType: hard
 
-"@openziti/ziti-browzer-sw-workbox-strategies@npm:^0.89.0":
+"@hanzozt/ziti-browzer-sw-workbox-strategies@npm:^0.89.0":
   version: 0.89.0
-  resolution: "@openziti/ziti-browzer-sw-workbox-strategies@npm:0.89.0"
+  resolution: "@hanzozt/ziti-browzer-sw-workbox-strategies@npm:0.89.0"
   dependencies:
-    "@openziti/ziti-browzer-core": "npm:^0.68.0"
+    "@hanzozt/ziti-browzer-core": "npm:^0.68.0"
     async-mutex: "npm:^0.5.0"
     cheerio: "npm:^1.0.0-rc.12"
     jwt-decode: "npm:^3.1.2"
@@ -167,11 +167,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openziti/ziti-browzer-sw@workspace:.":
+"@hanzozt/ziti-browzer-sw@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@openziti/ziti-browzer-sw@workspace:."
+  resolution: "@hanzozt/ziti-browzer-sw@workspace:."
   dependencies:
-    "@openziti/ziti-browzer-sw-workbox-strategies": "npm:^0.89.0"
+    "@hanzozt/ziti-browzer-sw-workbox-strategies": "npm:^0.89.0"
     "@rollup/plugin-commonjs": "npm:^22.0.0"
     "@rollup/plugin-json": "npm:^4.1.0"
     "@rollup/plugin-node-resolve": "npm:^13.2.1"
