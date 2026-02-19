@@ -11,7 +11,7 @@ const SRC_DIR   = 'src';
 const BUILD_DIR = 'dist';
 
 export default {
-  input: `${SRC_DIR}/ziti-browzer-sw.ts`,
+  input: `${SRC_DIR}/zt-browzer-sw.ts`,
   manualChunks: (id) => {
 
     if (!id.includes('/node_modules/')) {
@@ -19,9 +19,9 @@ export default {
     }
 
     /**
-     * comment out the following IFF doing 'yarn link @hanzozt/ziti-browzer-sw-workbox-strategies' dev builds
+     * comment out the following IFF doing 'yarn link @hanzozt/zt-browzer-sw-workbox-strategies' dev builds
      */
-    // if (id.includes('/ziti-browzer-sw/node_modules/@hanzozt/ziti-browzer-core/')) {
+    // if (id.includes('/zt-browzer-sw/node_modules/@hanzozt/zt-browzer-core/')) {
     //   console.log('rollup-config: id is: ', id)
     //   return undefined;
     // }
@@ -30,9 +30,9 @@ export default {
       '/lodash-es/',
       '/workbox-routing/',
       '/libcrypto/',
-      '/ziti-browzer-core/',
-      '/ziti-browzer-sw-workbox-strategies/',
-      '/ziti-browzer-edge-client/',
+      '/zt-browzer-core/',
+      '/zt-browzer-sw-workbox-strategies/',
+      '/zt-browzer-edge-client/',
       'workbox-core',
       'workbox-expiration',
       'workbox-precaching',
@@ -46,7 +46,7 @@ export default {
     // console.log('res is: ', res);
     let regex = /\//g;
     res = res.replace(regex,'-');
-    return `ziti-browzer-sw-${res}`;
+    return `zt-browzer-sw-${res}`;
 
   },
   plugins: [

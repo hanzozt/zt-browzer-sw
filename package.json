@@ -1,10 +1,10 @@
 {
-  "name": "@hanzozt/ziti-browzer-sw",
+  "name": "@hanzozt/zt-browzer-sw",
   "version": "0.84.0",
   "files": [
     "dist"
   ],
-  "main": "dist/ziti-browzer-sw.js",
+  "main": "dist/zt-browzer-sw.js",
   "description": "Service Worker used as part of the Hanzo ZT browZer stack",
   "engines": {
     "node": ">= 10.0.0"
@@ -34,7 +34,7 @@
     "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\""
   },
   "dependencies": {
-    "@hanzozt/ziti-browzer-sw-workbox-strategies": "^0.89.0",
+    "@hanzozt/zt-browzer-sw-workbox-strategies": "^0.89.0",
     "@types/lodash-es": "^4.17.6",
     "workbox-core": "^6.6.0",
     "workbox-expiration": "^6.6.0",
@@ -43,7 +43,7 @@
     "workbox-strategies": "^6.6.0"
   },
   "keywords": [
-    "ziti",
+    "zt",
     "zero trust",
     "zero-trust",
     "browZer",
@@ -54,7 +54,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/hanzozt/ziti-browzer-sw.git"
+    "url": "https://github.com/hanzozt/zt-browzer-sw.git"
   },
   "author": {
     "name": "NetFoundry",
@@ -63,8 +63,8 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/hanzozt/ziti-browzer-sw/issues"
+    "url": "https://github.com/hanzozt/zt-browzer-sw/issues"
   },
-  "homepage": "https://github.com/hanzozt/ziti-browzer-sw",
+  "homepage": "https://github.com/hanzozt/zt-browzer-sw",
   "packageManager": "yarn@4.0.2+sha512.4e502bea682e7d8004561f916f1da2dfbe6f718024f6aa50bf8cd86f38ea3a94a7f1bf854a9ca666dd8eafcfb8d44baaa91bf5c7876e79a7aeac952c332f0e88"
 }

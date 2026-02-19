@@ -1,4 +1,4 @@
-interface zitiBrowzerServiceWorkerGlobalScope extends ServiceWorkerGlobalScope {
+interface ztBrowzerServiceWorkerGlobalScope extends ServiceWorkerGlobalScope {
   _sendMessageToClients: (message: any) => Promise<unknown>;
   _unregister: () => Promise<unknown>;
   _unregisterNoReload: () => void;
@@ -21,8 +21,8 @@ interface zitiBrowzerServiceWorkerGlobalScope extends ServiceWorkerGlobalScope {
   _logLevel: any;
   _logger: any;
   _core: ZitiBrowzerCore;
-  _zitiContext: any;
-  _zitiConfig: any;
+  _ztContext: any;
+  _ztConfig: any;
   _uuid: any;
   _cookieObject: any;
   _zbrReloadPending: boolean;
@@ -31,14 +31,14 @@ interface zitiBrowzerServiceWorkerGlobalScope extends ServiceWorkerGlobalScope {
   _currentAPISession: any;
 }
 
-declare const self: zitiBrowzerServiceWorkerGlobalScope;
+declare const self: ztBrowzerServiceWorkerGlobalScope;
 
 import {cleanupOutdatedCaches} from 'workbox-precaching';
 import {ExpirationPlugin} from 'workbox-expiration';
 import {registerRoute, setCatchHandler} from 'workbox-routing';
 import {clientsClaim} from 'workbox-core';
-import {ZitiFirstStrategy} from '@hanzozt/ziti-browzer-sw-workbox-strategies';
-import { ZitiBrowzerCore } from '@hanzozt/ziti-browzer-core';
+import {ZitiFirstStrategy} from '@hanzozt/zt-browzer-sw-workbox-strategies';
+import { ZitiBrowzerCore } from '@hanzozt/zt-browzer-core';
 import { v4 as uuidv4 } from 'uuid';
 
 import pjson from '../package.json';
@@ -59,7 +59,7 @@ self._logger = self._core.createZitiLogger({
   logLevel: new URLSearchParams(location.search).get("logLevel") || 'Silent',
   suffix: 'ZBSW',
   useSWPostMessage: self._eruda,
-  zitiBrowzerServiceWorkerGlobalScope: self,
+  ztBrowzerServiceWorkerGlobalScope: self,
 });
 self._cookieObject = {};
 self._logger.trace(`main sw starting for UUID: `, self._uuid);
@@ -67,12 +67,12 @@ self._logger.trace(`main sw starting for UUID: `, self._uuid);
 let zfs = new ZitiFirstStrategy(
   {
     uuid: self._uuid,
-    zitiBrowzerServiceWorkerGlobalScope: self,
+    ztBrowzerServiceWorkerGlobalScope: self,
     logLevel:       new URLSearchParams(location.search).get("logLevel")      || 'Silent',
     controllerApi:  new URLSearchParams(location.search).get("controllerApi") || undefined,
     eruda: self._eruda,
 
-    cacheName:      'ziti-browzer-cache',
+    cacheName:      'zt-browzer-cache',
 
     plugins: [
       new ExpirationPlugin({
@@ -106,23 +106,23 @@ const matchGETCb = (url:any, request:any) => {
   if (getURL.pathname.includes(".well-known/openid-configuration")) {
     return false;
   }
-  if (getURL.pathname.includes("ziti-browzer-latest-release-version")) {
+  if (getURL.pathname.includes("zt-browzer-latest-release-version")) {
     return false;
   }
   if (getURL.pathname.includes("browzer_error")) {
     return false;
   }
-  if (typeof self._zitiConfig === 'undefined') {
+  if (typeof self._ztConfig === 'undefined') {
     return true;
   }
   if (getURL.searchParams.get("code") && getURL.searchParams.get("state")) {    // possible IdP-related URL
-    if (getURL.hostname === self._zitiConfig.browzer.bootstrapper.self.host) {  // ..but if hitting the protected web app itself
+    if (getURL.hostname === self._ztConfig.browzer.bootstrapper.self.host) {  // ..but if hitting the protected web app itself
       return true;                                                              // ..then let it go over Ziti
     } else {
       return false;                                                             // ..otherwise, route over raw internet since it's IdP-related
     }
   }
-  let controllerURL = new URL(self._zitiConfig.controller.api);
+  let controllerURL = new URL(self._ztConfig.controller.api);
   if ((url.hostname === controllerURL.hostname) && (url.port === controllerURL.port)) {
     return false;
   } else {
@@ -139,15 +139,15 @@ registerRoute(
 );
 
 const filter = (url:any) => {
-  if (typeof self._zitiConfig === 'undefined') {
+  if (typeof self._ztConfig === 'undefined') {
     return false;
   }
   let filterURL = new URL(url);
-  let controllerURL = new URL(self._zitiConfig.controller.api);
+  let controllerURL = new URL(self._ztConfig.controller.api);
   if ((filterURL.hostname === controllerURL.hostname) && (filterURL.port === controllerURL.port)) {
     return false;
   }
-  let idpURL = new URL(self._zitiConfig.idp.host);
+  let idpURL = new URL(self._ztConfig.idp.host);
   if ((filterURL.hostname === idpURL.hostname)) {
     return false;
   }
@@ -212,7 +212,7 @@ self.addEventListener('message', async (event) => {
     self._logger.trace(`message.GET_VERSION received`);
     event.ports[0].postMessage({
       version: pjson.version,
-      zitiConfig: self._zitiConfig
+      ztConfig: self._ztConfig
     });
   }
 
@@ -233,11 +233,11 @@ self.addEventListener('message', async (event) => {
   else if (event.data.type === 'SET_CONFIG') {
     self.skipWaiting();
     self._logger.trace(`message.SET_CONFIG received, payload is: `, event.data.payload);
-    self._zitiConfig = event.data.payload.zitiConfig;
+    self._ztConfig = event.data.payload.ztConfig;
     self._logger.trace(`message.SET_CONFIG set for UUID: `, self._uuid);
     event.ports[0].postMessage({
       version: pjson.version,
-      zitiConfig: self._zitiConfig
+      ztConfig: self._ztConfig
     });
   }
 
@@ -260,7 +260,7 @@ self.addEventListener('message', async (event) => {
   else if (event.data.type === 'ZBR_INIT_COMPLETE') {
     self._logger.trace(`message.ZBR_INIT_COMPLETE received, payload is: `, event.data.payload);
     self._zbrReloadPending = false;
-    self._zitiConfig = event.data.payload.zitiConfig;
+    self._ztConfig = event.data.payload.ztConfig;
     self._zbrPingTimestamp = Date.now();
   }
 
@@ -641,7 +641,7 @@ self._sendMessageToClients = async function ( message ) {
       var messageChannel = new MessageChannel();
 
       messageChannel.port1.onmessage = function( event ) {
-        self._logger.trace('ziti-sw: sendMessageToClient() reply event is: ', message.type, ' - ', event.data.response);
+        self._logger.trace('zt-sw: sendMessageToClient() reply event is: ', message.type, ' - ', event.data.response);
           if (event.data.error) {
             reject(event.data.error);
           } else {
